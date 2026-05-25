@@ -1,101 +1,96 @@
-import {
-  calculateAverage,
-  getGradesByOrganizationId,
-  getStudentsByOrganizationId,
-} from '@edusmart/shared'
+/**
+ * /admin/grades — Liste des notes saisies (lecture seule pour l'instant)
+ * La saisie interactive arrivera dans STEP_06 avec Server Action `recordGrade`.
+ */
+import { createSupabaseServerClient } from '@edusmart/shared'
 import { AdminShell } from '@/components/admin-shell'
 import { getAdminTenant } from '@/lib/admin-tenant'
 
-export default function GradesPage() {
-  const tenant = getAdminTenant()
-  const students = getStudentsByOrganizationId(tenant.school.id)
-  const grades = getGradesByOrganizationId(tenant.school.id)
+export const dynamic = 'force-dynamic'
+
+export default async function GradesPage() {
+  const tenant = await getAdminTenant()
+  const supabase = createSupabaseServerClient()
+
+  const { data: grades } = await supabase
+    .from('grades')
+    .select(`
+      id, value, max_value, coefficient, evaluation_type, title, recorded_at,
+      student:students(first_name, last_name),
+      subject:subjects(name, color),
+      period:academic_periods(name)
+    `)
+    .eq('organization_id', tenant.school.id)
+    .order('recorded_at', { ascending: false })
+    .limit(100)
 
   return (
-    <AdminShell school={tenant.school} isLocal={tenant.isLocal} active="grades">
-      <section className="grid gap-4 xl:grid-cols-[0.9fr_1.1fr]">
-        <div className="rounded-lg border border-slate-200 bg-white p-5">
-          <p className="text-sm font-semibold uppercase text-slate-500">
-            Moyennes
-          </p>
-          <h2 className="mt-2 text-xl font-bold text-slate-950">
-            Calcul pondere par eleve
+    <AdminShell
+      school={tenant.school}
+      isLocal={tenant.isLocal}
+      active="grades"
+      userFullName={tenant.profile.full_name}
+    >
+      <section className="rounded-lg border border-slate-200 bg-white">
+        <div className="border-b border-slate-200 p-5">
+          <p className="text-sm font-semibold uppercase text-slate-500">Notes</p>
+          <h2 className="text-xl font-bold text-slate-950">
+            {grades?.length ?? 0} note{(grades?.length ?? 0) > 1 ? 's' : ''} saisie
+            {(grades?.length ?? 0) > 1 ? 's' : ''} récemment
           </h2>
-          <div className="mt-5 space-y-3">
-            {students.map((student) => {
-              const studentGrades = grades.filter(
-                (grade) => grade.studentId === student.id,
-              )
-              const average = calculateAverage(studentGrades)
-
-              return (
-                <article
-                  key={student.id}
-                  className="rounded-lg border border-slate-200 p-4"
-                >
-                  <div className="flex items-center justify-between gap-4">
-                    <div>
-                      <h3 className="font-bold text-slate-950">
-                        {student.firstName} {student.lastName}
-                      </h3>
-                      <p className="text-sm text-slate-500">
-                        {student.className}
-                      </p>
-                    </div>
-                    <p className="text-2xl font-bold text-slate-950">
-                      {average.toFixed(1)}
-                    </p>
-                  </div>
-                </article>
-              )
-            })}
-          </div>
         </div>
-
-        <div className="rounded-lg border border-slate-200 bg-white">
-          <div className="border-b border-slate-200 p-5">
-            <h2 className="text-xl font-bold text-slate-950">
-              Notes saisies
-            </h2>
-          </div>
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[620px] text-left text-sm">
+        <div className="overflow-x-auto">
+          {!grades || grades.length === 0 ? (
+            <p className="p-8 text-center text-sm text-slate-500">
+              Aucune note saisie. Va dans une fiche élève pour en ajouter.
+            </p>
+          ) : (
+            <table className="w-full min-w-[720px] text-left text-sm">
               <thead className="bg-slate-50 text-slate-500">
                 <tr>
-                  <th className="px-5 py-3 font-semibold">Eleve</th>
-                  <th className="px-5 py-3 font-semibold">Matiere</th>
+                  <th className="px-5 py-3 font-semibold">Date</th>
+                  <th className="px-5 py-3 font-semibold">Élève</th>
+                  <th className="px-5 py-3 font-semibold">Matière</th>
+                  <th className="px-5 py-3 font-semibold">Période</th>
+                  <th className="px-5 py-3 font-semibold">Type</th>
                   <th className="px-5 py-3 font-semibold">Note</th>
-                  <th className="px-5 py-3 font-semibold">Coefficient</th>
+                  <th className="px-5 py-3 font-semibold">Coef</th>
                 </tr>
               </thead>
               <tbody>
-                {grades.map((grade) => {
-                  const student = students.find(
-                    (item) => item.id === grade.studentId,
-                  )
-
-                  return (
-                    <tr key={grade.id} className="border-t border-slate-100">
-                      <td className="px-5 py-3 font-semibold text-slate-950">
-                        {student
-                          ? `${student.firstName} ${student.lastName}`
-                          : 'Eleve inconnu'}
-                      </td>
-                      <td className="px-5 py-3 text-slate-600">
-                        {grade.subject}
-                      </td>
-                      <td className="px-5 py-3 text-slate-600">
-                        {grade.score}/{grade.maxScore}
-                      </td>
-                      <td className="px-5 py-3 text-slate-600">
-                        {grade.coefficient ?? 1}
-                      </td>
-                    </tr>
-                  )
-                })}
+                {grades.map((g: any) => (
+                  <tr key={g.id} className="border-t border-slate-100">
+                    <td className="px-5 py-3 text-xs text-slate-500">
+                      {g.recorded_at
+                        ? new Date(g.recorded_at).toLocaleDateString('fr-FR')
+                        : '—'}
+                    </td>
+                    <td className="px-5 py-3 font-semibold text-slate-950">
+                      {g.student?.first_name} {g.student?.last_name}
+                    </td>
+                    <td className="px-5 py-3 text-slate-600">
+                      <span
+                        className="rounded-md px-2 py-1 text-xs font-semibold"
+                        style={{ background: `${g.subject?.color}22`, color: g.subject?.color }}
+                      >
+                        {g.subject?.name ?? '—'}
+                      </span>
+                    </td>
+                    <td className="px-5 py-3 text-slate-600">
+                      {g.period?.name ?? '—'}
+                    </td>
+                    <td className="px-5 py-3 text-slate-600">
+                      {g.evaluation_type ?? '—'}
+                    </td>
+                    <td className="px-5 py-3 font-semibold text-slate-950">
+                      {g.value}/{g.max_value}
+                    </td>
+                    <td className="px-5 py-3 text-slate-600">{g.coefficient ?? 1}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
-          </div>
+          )}
         </div>
       </section>
     </AdminShell>

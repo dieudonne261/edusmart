@@ -7,9 +7,8 @@ export type Json =
   | Json[]
 
 export type Database = {
-  // Métadata interne Supabase : indique la version Postgrest utilisée par le
-  // projet hébergé. Permet à @supabase/postgrest-js de typer correctement les
-  // signatures de .insert(), .update(), .upsert() selon les capacités du serveur.
+  // Allows to automatically instantiate createClient with right options
+  // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
     PostgrestVersion: "14.5"
   }
@@ -1758,7 +1757,9 @@ export type Database = {
       students: {
         Row: {
           address: string | null
+          attendance_rate: number | null
           avatar_url: string | null
+          average: number | null
           birth_date: string | null
           city: string | null
           created_at: string | null
@@ -1782,7 +1783,9 @@ export type Database = {
         }
         Insert: {
           address?: string | null
+          attendance_rate?: number | null
           avatar_url?: string | null
+          average?: number | null
           birth_date?: string | null
           city?: string | null
           created_at?: string | null
@@ -1806,7 +1809,9 @@ export type Database = {
         }
         Update: {
           address?: string | null
+          attendance_rate?: number | null
           avatar_url?: string | null
+          average?: number | null
           birth_date?: string | null
           city?: string | null
           created_at?: string | null
