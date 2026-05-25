@@ -1,0 +1,18 @@
+@ 86400 IN NS ns24.lwsdns.com.
+@ 86400 IN NS ns23.lwsdns.com.
+@ 86400 IN NS ns22.lwsdns.com.
+@ 86400 IN NS ns21.lwsdns.com.
+@ 86400 IN MX 10 mail.edusmart.site.
+@ 1800 IN A 76.76.21.21
+mail 21600 IN A 213.255.195.65
+* 1800 IN CNAME 7c280f9aadf5f882.vercel-dns-017.com.
+ftp 86400 IN CNAME @
+imap 86400 IN CNAME mail.edusmart.site.
+pop 86400 IN CNAME mail.edusmart.site.
+smtp 86400 IN CNAME mail.edusmart.site.
+test 1800 IN CNAME 7c280f9aadf5f882.vercel-dns-017.com.
+www 86400 IN CNAME @
+@ 1800 IN TXT v=spf1 ip4:213.255.195.65 include:_spf.lws.fr include:_spf.google.com ~all
+dkim._domainkey 1800 IN TXT v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC8C8Xh049AFp+LuKVCUlwahtRFxO85rrJ0dE0idCfNAsI5Nlobf02gik8jesZ04clvZ0lxaM+L8IU50AKVHeFva83Y7LVJdeaXk14fO3gwQ1r/asNhzvg++88bfhSaLKD5M4Eid13mBrpsV3gP/MeGIzsty0AMUUNpDwe0otnv3wIDAQAB
+resend._domainkey 1800 IN TXT v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCdYGM5HjYLxQ4WIBew0syjh7zHeGyoT2K7zJSW62lHfehgAUvH6boE8BswtuPp2U6lBTzLKGQQQXb/VGYab+uF5HtXIHVp8c1RbCc3bnSFORjIa532cHgXvUl4OZ4jOQVcD/xjuBv4ZPfo07IYjEWxyTzHIgw8R/P/FE4mPBZ4jwIDAQAB
+_dmarc 86400 IN TXT v=DMARC1; p=quarantine; rua=mailto:contact@edusmart.site

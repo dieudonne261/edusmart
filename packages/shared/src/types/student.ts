@@ -3,5 +3,9 @@ export type Student = {
   organizationId: string
   firstName: string
   lastName: string
-  level?: string
+  className: string
+  level: string
+  status: 'active' | 'watch' | 'inactive'
+  attendanceRate: number
+  average: number
 }

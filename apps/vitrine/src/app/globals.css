@@ -2,6 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
+  background: #fafaf8;
+  color: #0f172a;
+  /* Variable injectée par next/font/local (layout.tsx). Cf. layout pour détail. */
+  font-family:
+    var(--font-geist), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
 }

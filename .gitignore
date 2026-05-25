@@ -1,3 +1,6 @@
+# ───────────────────────────────────────────────────────────────
+# DÉPENDANCES & BUILD
+# ───────────────────────────────────────────────────────────────
 node_modules/
 .turbo/
 dist/
@@ -5,9 +8,41 @@ build/
 .next/
 out/
 .expo/
-*.log
+release/
 *.tsbuildinfo
+
+# ───────────────────────────────────────────────────────────────
+# LOGS
+# ───────────────────────────────────────────────────────────────
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# ───────────────────────────────────────────────────────────────
+# SECRETS — IMPORTANT
+# Toujours .env (vraies clés) → IGNORÉ
+# Mais .env.example (placeholders) → TRACKÉ par git
+# ───────────────────────────────────────────────────────────────
 .env
 .env.local
+.env.*.local
+.env.production
+.env.development
+# NE PAS ajouter .env.example ici — il sert de modèle pour les autres devs
+
+# ───────────────────────────────────────────────────────────────
+# OS / IDE
+# ───────────────────────────────────────────────────────────────
 .DS_Store
+Thumbs.db
 *.tgz
+.vscode/*.log
+.idea/
+
+# ───────────────────────────────────────────────────────────────
+# COUVERTURE / RAPPORTS
+# ───────────────────────────────────────────────────────────────
+coverage/
+.playwright/
+playwright-report/
+test-results/

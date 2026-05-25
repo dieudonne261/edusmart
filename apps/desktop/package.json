@@ -4,7 +4,10 @@
   "private": true,
   "main": "electron/main.js",
   "scripts": {
+    "ensure:electron": "node scripts/ensure-electron.cjs",
+    "predev": "node scripts/ensure-electron.cjs",
     "dev": "concurrently \"vite\" \"wait-on tcp:5173 && electron .\"",
+    "prebuild": "node scripts/ensure-electron.cjs",
     "build": "vite build && electron-builder",
     "type-check": "tsc --noEmit",
     "lint": "echo \"No lint configured\"",
@@ -15,20 +18,26 @@
     "react-dom": "18.2.0"
   },
   "devDependencies": {
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "@vitejs/plugin-react": "^4",
-    "concurrently": "^8",
-    "electron": "^30",
-    "electron-builder": "^24",
-    "lightningcss": "^1.21.0",
-    "typescript": "^5",
-    "vite": "^5",
-    "wait-on": "^7"
+      "@types/react": "^18",
+      "@types/react-dom": "^18",
+      "@vitejs/plugin-react": "^4",
+      "autoprefixer": "^10",
+      "concurrently": "^8",
+      "electron": "^30",
+      "electron-builder": "^24",
+      "lightningcss": "^1.21.0",
+      "postcss": "^8",
+      "tailwindcss": "^3",
+      "typescript": "^5",
+      "vite": "^5",
+      "wait-on": "^7"
   },
   "build": {
     "appId": "site.edusmart.desktop",
     "productName": "EduSmart Desktop",
-    "files": ["dist/**", "electron/**", "package.json"]
+    "files": ["dist/**", "electron/**", "package.json"],
+    "win": {
+      "signAndEditExecutable": false
+    }
   }
 }

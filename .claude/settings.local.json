@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:claude.ai)",
+      "mcp__0622400f-805a-4700-bd77-3bdd0e464bb9__get_advisors",
+      "mcp__0622400f-805a-4700-bd77-3bdd0e464bb9__apply_migration",
+      "mcp__0622400f-805a-4700-bd77-3bdd0e464bb9__list_migrations",
+      "mcp__0622400f-805a-4700-bd77-3bdd0e464bb9__get_publishable_keys",
+      "mcp__0622400f-805a-4700-bd77-3bdd0e464bb9__generate_typescript_types",
+      "Bash(git grep *)",
+      "Bash(node -e \"const fs=require\\('fs'\\);const data=JSON.parse\\(fs.readFileSync\\('C:/Users/Dede/.claude/projects/D--code-Projet-Master-EduSmart/d5aa8749-d36e-44b4-9fd3-6380fdd752f1/tool-results/toolu_01UWPF16Uzny6bPNbvTnQd5f.json','utf8'\\)\\);const types=JSON.parse\\(data[0].text\\).types;fs.writeFileSync\\('packages/shared/src/supabase/types.ts',types\\);console.log\\('✅ Types écrits :',types.length,'caractères'\\)\")",
+      "Bash(pnpm install *)",
+      "Bash(pnpm --filter @edusmart/shared type-check)",
+      "Bash(grep -E \"^\\\\.env$\")",
+      "Bash(node -e 'let s=\"\"; process.stdin.on\\(\"data\",c=>s+=c\\); process.stdin.on\\(\"end\",\\(\\)=>{ const arr=JSON.parse\\(s\\); const types=JSON.parse\\(arr[0].text\\).types; process.stdout.write\\(types\\); }\\)')",
+      "Bash(pnpm --filter @edusmart/shared add @supabase/supabase-js@latest @supabase/ssr@latest)"
+    ]
+  }
+}

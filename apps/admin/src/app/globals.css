@@ -2,6 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
+  background: #f1f5f9;
+  color: #0f172a;
+  /* La variable --font-geist est injectée par next/font/local depuis layout.tsx.
+     Fallback stack : system fonts pour les rares cas où la font ne charge pas. */
+  font-family:
+    var(--font-geist), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
 }
