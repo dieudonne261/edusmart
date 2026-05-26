@@ -21,13 +21,13 @@ export default function InscriptionMerciPage({
         </h1>
         <p className="mt-4 leading-7 text-slate-600">
           Nous verifierons le sous-domaine{school ? ` ${school}.edusmart.site` : ''}
-          , puis nous reviendrons vers vous pour activer l'espace admin.
+          , puis nous reviendrons vers vous pour activer l&apos;espace admin.
         </p>
         <Link
           href="/"
           className="mt-7 inline-flex h-10 items-center justify-center rounded-md bg-[#1A4D3A] px-4 text-sm font-semibold text-white"
         >
-          Retour a l'accueil
+          Retour a l&apos;accueil
         </Link>
       </section>
     </main>

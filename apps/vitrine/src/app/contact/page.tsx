@@ -29,8 +29,8 @@ export default async function ContactPage({
           </h1>
           <p className="mt-4 max-w-2xl leading-7 text-slate-600">
             Pour demarrer une ecole sur la plateforme, remplis le formulaire
-            d'inscription. La demande sera stockee dans Supabase et traitee
-            depuis l'administration.
+            d&apos;inscription. La demande sera stockee dans Supabase et traitee
+            depuis l&apos;administration.
           </p>
           <Link
             href="/inscription"
@@ -54,7 +54,7 @@ export default async function ContactPage({
             Ecrire a {tenant.school.name}
           </h1>
           <p className="mt-4 leading-7 text-slate-600">
-            Inscriptions, visites, demandes d'information. Nous repondons sous 48h.
+            Inscriptions, visites, demandes d&apos;information. Nous repondons sous 48h.
           </p>
           <dl className="mt-8 space-y-3 text-sm">
             {(
