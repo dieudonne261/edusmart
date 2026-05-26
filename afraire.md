@@ -16,7 +16,7 @@ Le trigger DB créera automatiquement ton profile super_admin lié à UAZ dès l
 4. Framework Preset : Next.js (auto-détecté)
 5. Root Directory : apps/vitrine
 6. Build & Output Settings :
-   • Build Command   : pnpm turbo run build --filter=@edusmart/vitrine
+   • Build Command   : pnpm turbo run build --filter=@edusmart/admin
    • Install Command : pnpm install --frozen-lockfile
    • Output Directory: .next  (laisser vide pour défaut)
 7. Environment Variables (cliquer Add) :

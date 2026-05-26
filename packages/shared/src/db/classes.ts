@@ -13,6 +13,7 @@
  * ─────────────────────────────────────────────────────────────────────────────
  */
 
+
 import { createSupabaseServerClient } from '../supabase/server'
 import type { Tables, Inserts, Updates } from '../supabase'
 

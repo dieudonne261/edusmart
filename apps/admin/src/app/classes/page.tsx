@@ -48,7 +48,7 @@ export default async function ClassesPage() {
             <div className="rounded-lg border border-dashed border-slate-300 p-8 text-center">
               <p className="font-semibold text-slate-950">Aucune classe publiee</p>
               <p className="mt-2 text-sm text-slate-500">
-                Creez une annee academique active puis ajoutez les classes de l'ecole.
+                Creez une annee academique active puis ajoutez les classes de l&apos;ecole.
               </p>
             </div>
           ) : (
