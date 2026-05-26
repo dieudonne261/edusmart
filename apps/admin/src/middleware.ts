@@ -21,18 +21,23 @@ const PUBLIC_PATHS = ['/login', '/auth/callback', '/forbidden', '/404']
 export async function middleware(req: NextRequest) {
   const host = req.headers.get('host') ?? ''
   const rootDomain = process.env.NEXT_PUBLIC_ROOT_DOMAIN ?? 'edusmart.site'
+  const defaultSchoolSlug =
+    process.env.NEXT_PUBLIC_DEFAULT_ADMIN_SCHOOL_SLUG ??
+    process.env.NEXT_PUBLIC_DEFAULT_SCHOOL_SLUG ??
+    'uaz'
   const requestHeaders = new Headers(req.headers)
 
   /* ── 1) Résolution du slug multi-tenant ─────────────────────────────── */
-  let slug = 'strelitzia'
+  let slug = defaultSchoolSlug
   const isLocalHost =
     host.includes('localhost') ||
     host.includes('127.0.0.1') ||
     host.includes('[::1]')
+  const isVercelHost = host.endsWith('.vercel.app')
 
   if (isLocalHost) {
-    slug = req.nextUrl.searchParams.get('school') ?? 'strelitzia'
-  } else if (host !== rootDomain && host !== `admin.${rootDomain}`) {
+    slug = req.nextUrl.searchParams.get('school') ?? defaultSchoolSlug
+  } else if (!isVercelHost && host !== rootDomain && host !== `admin.${rootDomain}`) {
     slug = host.replace(`.${rootDomain}`, '').split('.')[0]
   }
   requestHeaders.set('x-school-slug', slug)

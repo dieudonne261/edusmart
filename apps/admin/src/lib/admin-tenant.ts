@@ -41,7 +41,11 @@ export async function getAdminTenantPublic(): Promise<{
 }> {
   const headerStore = headers()
   const host = headerStore.get('x-host') ?? ''
-  const slug = headerStore.get('x-school-slug') ?? 'strelitzia'
+  const defaultSchoolSlug =
+    process.env.NEXT_PUBLIC_DEFAULT_ADMIN_SCHOOL_SLUG ??
+    process.env.NEXT_PUBLIC_DEFAULT_SCHOOL_SLUG ??
+    'uaz'
+  const slug = headerStore.get('x-school-slug') ?? defaultSchoolSlug
   const isLocal =
     host.includes('localhost') || host.includes('127.0.0.1') || host.includes('[::1]')
   const school = await getOrganizationBySlug(slug)

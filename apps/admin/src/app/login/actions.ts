@@ -55,12 +55,16 @@ export async function signInWithMagicLink(_prev: AuthActionResult, formData: For
   if (!email) return { error: 'Email requis.' }
 
   const supabase = createSupabaseServerClient()
+  const headerStore = headers()
+  const slug = headerStore.get('x-school-slug') ?? '__root__'
+  const callbackBase =
+    process.env.NEXT_PUBLIC_SUPABASE_AUTH_CALLBACK_URL ?? `${getAppOrigin()}/auth/callback`
   // Important : le `emailRedirectTo` pointe vers notre route /auth/callback
   // qui finalise la session (échange du `code` contre un token).
   const { error } = await supabase.auth.signInWithOtp({
     email,
     options: {
-      emailRedirectTo: `${getAppOrigin()}/auth/callback?next=/post-login`,
+      emailRedirectTo: `${callbackBase}?school=${slug}&next=/post-login`,
     },
   })
   if (error) return { error: error.message }

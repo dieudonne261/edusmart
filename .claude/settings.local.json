@@ -13,7 +13,21 @@
       "Bash(pnpm --filter @edusmart/shared type-check)",
       "Bash(grep -E \"^\\\\.env$\")",
       "Bash(node -e 'let s=\"\"; process.stdin.on\\(\"data\",c=>s+=c\\); process.stdin.on\\(\"end\",\\(\\)=>{ const arr=JSON.parse\\(s\\); const types=JSON.parse\\(arr[0].text\\).types; process.stdout.write\\(types\\); }\\)')",
-      "Bash(pnpm --filter @edusmart/shared add @supabase/supabase-js@latest @supabase/ssr@latest)"
+      "Bash(pnpm --filter @edusmart/shared add @supabase/supabase-js@latest @supabase/ssr@latest)",
+      "mcp__145614dc-ce89-49d8-935a-f6a3b680d1f6__list_teams",
+      "mcp__145614dc-ce89-49d8-935a-f6a3b680d1f6__list_projects",
+      "Bash(pnpm -r type-check)",
+      "mcp__0622400f-805a-4700-bd77-3bdd0e464bb9__execute_sql",
+      "Bash(pnpm --filter @edusmart/admin add @supabase/ssr@latest)",
+      "Bash(grep -A 30 \"students:.*{$\" packages/shared/src/supabase/types.ts)",
+      "mcp__145614dc-ce89-49d8-935a-f6a3b680d1f6__get_project",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "mcp__145614dc-ce89-49d8-935a-f6a3b680d1f6__deploy_to_vercel",
+      "Bash(vercel --version)",
+      "mcp__145614dc-ce89-49d8-935a-f6a3b680d1f6__list_deployments",
+      "mcp__0622400f-805a-4700-bd77-3bdd0e464bb9__get_project_url"
     ]
   }
 }
